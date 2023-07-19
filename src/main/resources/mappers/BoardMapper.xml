@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.boardsj.mappers.BoardMapper">
+
+    <!--  목록  -->
+    <select id="boardList" resultType="com.example.boardsj.dto.BoardDTO" parameterType="com.example.boardsj.dto.BoardDTO">
+        select * from tbl_board
+        where tno > 0
+        order by tno desc
+        limit 0,10
+    </select>
+    
+</mapper>
