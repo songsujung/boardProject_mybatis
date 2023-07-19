@@ -24,5 +24,47 @@ public class BoardMapperTest {
         log.info(boardMapper.boardList(dto));
     }
 
+    // 등록
+    @Test
+    public void testRegist() {
+        BoardDTO dto = BoardDTO.builder()
+                .title("title")
+                .content("content")
+                .writer("writer")
+                .build();
+
+        log.info("=====================================");
+        boardMapper.regist(dto);
+    }
+
+    // 조회
+    @Test
+    public void testRead() {
+
+        log.info("=====================================");
+        log.info(boardMapper.read(2038L));
+    }
+
+    // 삭제
+    @Test
+    public void testDelete() {
+
+        log.info("=====================================");
+        boardMapper.delete(1L);
+        log.info("삭제되었습니다.");
+    }
+
+    // 수정
+    @Test
+    public void testModify() {
+        BoardDTO dto = BoardDTO.builder()
+                .tno(2038L)
+                .title("testModify")
+                .content("test0331")
+                .build();
+
+        boardMapper.modify(dto);
+    }
+
 
 }
