@@ -7,6 +7,53 @@
     <title>Modify Page</title>
 </head>
 <body>
+    <div class="container-fluid pt-4 px-4" layout:fragment="content">
+        <!--/* [[${boardRead}]] */-->
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h2 class="mb-4">Board Modify</h2>
+                <hr>
+                <form class="modify" method="post" action="/board/modify">
+                    <h4 class="mb-4">tno</h4>
+                    <div class="alert alert-light" role="alert">[[${board.tno}]]</div>
+                    <h4 class="mb-4">title</h4>
+                    <div class="alert alert-light" role="alert">
+                        <input type="text" name="title" class="border-0 text-gray-600" th:value="${board.title}">
+                    </div>
+                    <h4 class="mb-4">content</h4>
+                    <div class="alert alert-light" role="alert">
+                        <input type="text" name="content" class="border-0 text-gray-600" th:value="${board.content}">
+                    </div>
+                    <h4 class="mb-4">writer</h4>
+                    <div class="alert alert-light" role="alert">[[${board.writer}]]</div>
+
+                    <div class="button_wrap">
+
+                        <button class="btn btn-primary btnModify">Modify</button>
+                        <!--  절대경로로 해주기  -->
+                        <a href="/board/list" class="btn btn-dark">Cancel</a>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const btnModify = document.querySelector(".btnModify")
+
+    const actionForm = document.querySelector(".modify")
+
+    const {tno} = [[${board}]]
+
+    console.log(tno)
+
+    btnModify.addEventListener("click", (e) => {
+        actionForm.submit()
+    })
+
+</script>
 
 </body>
 </html>

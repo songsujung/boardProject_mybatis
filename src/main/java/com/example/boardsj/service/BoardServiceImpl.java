@@ -49,5 +49,6 @@ public class BoardServiceImpl implements BoardService {
     public void modify(BoardDTO boardDTO) {
 
         boardMapper.modify(boardDTO);
+
     }
 }

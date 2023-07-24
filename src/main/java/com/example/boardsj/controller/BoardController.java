@@ -85,12 +85,14 @@ public class BoardController {
     }
 
     // post
-    @PostMapping("modify/{tno}")
-    public String boardModifyPost(@PathVariable("tno") Long tno, BoardDTO boardDTO) {
+    @PostMapping("modify")
+    public String boardModifyPost(BoardDTO boardDTO) {
 
         boardService.modify(boardDTO);
 
-        return "redirect:/board/read/" + tno;
+        log.info(boardDTO.getTno());
+
+        return "redirect:/board/read/" + boardDTO.getTno();
     }
 
 

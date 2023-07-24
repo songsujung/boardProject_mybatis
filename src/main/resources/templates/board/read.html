@@ -8,12 +8,14 @@
 </head>
 <body>
 <div class="container-fluid pt-4 px-4" layout:fragment="content">
-    <!--/* [[${boardDetail}]] */-->
+    <!--/* [[${boardRead}]] */-->
     <div class="col-sm-12 col-xl-12">
         <div class="bg-light rounded h-100 p-4">
             <h2 class="mb-4">Board Read</h2>
             <hr>
             <form class="read" method="post" action="/board/read">
+                <h4 class="mb-4">tno</h4>
+                <div class="alert alert-light" role="alert">[[${read.tno}]]</div>
                 <h4 class="mb-4">title</h4>
                 <div class="alert alert-light" role="alert">[[${read.title}]]</div>
                 <h4 class="mb-4">content</h4>
