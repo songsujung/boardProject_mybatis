@@ -16,34 +16,65 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">LIST</h6>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                        <tr>
-                            <th>tno</th>
-                            <th>title</th>
-                            <th>writer</th>
-                            <th>regDate</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="list: ${boardList}">
-                            <td th:text="${list.tno}"></td>
-                            <td th:text="${list.title}"></td>
-                            <td th:text="${list.writer}"></td>
-                            <td th:text="${list.regDate}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
+            <form class="list" method="get" action="/board/list">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered boardTable" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                            <tr>
+                                <th>tno</th>
+                                <th>title</th>
+                                <th>writer</th>
+                                <th>regDate</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="list: ${boardList}">
+                                <td th:text="${list.tno}" th:data-tno="${list.tno}"></td>
+                                <td th:text="${list.title}" th:data-tno="${list.tno}"></td>
+                                <td th:text="${list.writer}" th:data-tno="${list.tno}"></td>
+                                <td th:text="${list.regDate}" th:data-tno="${list.tno}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <a href="/board/regist" class="btn btn-primary">Register</a>
                 </div>
-                <a href="/board/regist" class="btn btn-primary">Register</a>
-            </div>
+            </form>
         </div>
 
     </div>
     <!-- /.container-fluid -->
 </div>
+
+<script layout:fragment="script" th:inline="javascript">
+
+    const board = document.querySelector(".boardTable")
+
+    const actionForm = document.querySelector(".list")
+
+    board.addEventListener("click", (e) => {
+
+        e.preventDefault()
+        e.stopPropagation()
+
+        console.log(e.target)
+
+        const target = e.target
+
+        const tno = target.getAttribute("data-tno")
+
+        console.log("tno: " + tno)
+
+        actionForm.setAttribute("action", `/board/read/${tno}`)
+
+        actionForm.submit()
+
+
+
+    },false)
+
+</script>
 
 
 </body>

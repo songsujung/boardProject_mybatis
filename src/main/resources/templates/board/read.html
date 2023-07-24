@@ -7,6 +7,59 @@
     <title>Read Page</title>
 </head>
 <body>
+<div class="container-fluid pt-4 px-4" layout:fragment="content">
+    <!--/* [[${boardDetail}]] */-->
+    <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+            <h2 class="mb-4">Board Read</h2>
+            <hr>
+            <form class="read" method="post" action="/board/read">
+                <h4 class="mb-4">title</h4>
+                <div class="alert alert-light" role="alert">[[${read.title}]]</div>
+                <h4 class="mb-4">content</h4>
+                <div class="alert alert-light" role="alert">[[${read.content}]]</div>
+                <h4 class="mb-4">writer</h4>
+                <div class="alert alert-light" role="alert">[[${read.writer}]]</div>
+                <h4 class="mb-4">UpdateDate</h4>
+                <div class="alert alert-light" role="alert">[[${read.updateDate}]]</div>
+                <div class="button_wrap">
+
+                    <!--  절대경로로 해주기  -->
+                    <a class="btn btn-dark" href="/board/list">LIST</a>
+                    <button class="btn btn-primary btnModify">Modify</button>
+                    <button class="btn btn-danger btnDelete">Delete</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+    <script layout:fragment="script" th:inline="javascript">
+
+        const btnModify = document.querySelector(".btnModify")
+        const btnDelete = document.querySelector(".btnDelete")
+
+        const actionForm = document.querySelector(".read")
+
+        const {tno}= [[${read}]]
+
+        btnModify.addEventListener("click", (e) => {
+            actionForm.setAttribute("action", `/board/modify/${tno}`)
+            actionForm.setAttribute("method", 'get')
+            actionForm.submit()
+        })
+
+        btnDelete.addEventListener("click", (e) => {
+            actionForm.setAttribute("action", `/board/delete/${tno}`)
+            actionForm.setAttribute("method", 'post')
+            actionForm.submit()
+        })
+
+
+
+
+    </script>
 
 </body>
 </html>

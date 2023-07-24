@@ -49,14 +49,14 @@ public class BoardController {
 
     // 게시판 조회
     @GetMapping("read/{tno}")
-    public String boardRead(@PathVariable("tno") Long tno, BoardDTO boardDTO, Model model) {
+    public String boardRead(@PathVariable("tno") Long tno, Model model) {
         log.info("GET Read.........");
 
         // tno 조회
-        BoardDTO dto = boardService.read(tno);
+        BoardDTO boardDTO = boardService.read(tno);
 
         // model로 전달
-        model.addAttribute("read", dto);
+        model.addAttribute("read", boardDTO);
 
         return "/board/read";
 
@@ -74,19 +74,19 @@ public class BoardController {
     // 게시판 수정
     // get
     @GetMapping("modify/{tno}")
-    public String boardModifyGet(@PathVariable("tno") Long tno, BoardDTO boardDTO, Model model) {
+    public String boardModifyGet(@PathVariable("tno") Long tno, Model model) {
 
         log.info("GET modify.........................");
 
-        BoardDTO dto = boardService.read(tno);
-        model.addAttribute("board", dto);
+        BoardDTO boardDTO = boardService.read(tno);
+        model.addAttribute("board", boardDTO);
 
         return "/board/modify";
     }
 
     // post
     @PostMapping("modify/{tno}")
-    public String  boardModifyPost(@PathVariable("tno") Long tno, BoardDTO boardDTO) {
+    public String boardModifyPost(@PathVariable("tno") Long tno, BoardDTO boardDTO) {
 
         boardService.modify(boardDTO);
 
