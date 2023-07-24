@@ -11,11 +11,10 @@
 
 <div layout:fragment="content">
     <div class="container-fluid">
-        [[${boardList}]]
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                <h6 class="m-0 font-weight-bold text-primary">LIST</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -29,11 +28,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="list: ${boardList.list}">
-                            <td>[[${list.tno}]]</td>
-                            <td>[[${list.title}]]</td>
-                            <td>[[${list.writer}]]</td>
-                            <td>[[${list.regDate}]]</td>
+                        <tr th:each="list: ${boardList}">
+                            <td th:text="${list.tno}"></td>
+                            <td th:text="${list.title}"></td>
+                            <td th:text="${list.writer}"></td>
+                            <td th:text="${list.regDate}"></td>
                         </tr>
                         </tbody>
                     </table>

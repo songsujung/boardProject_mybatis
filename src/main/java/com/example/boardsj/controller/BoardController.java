@@ -23,7 +23,7 @@ public class BoardController {
 
     // 게시판 목록
     @GetMapping("list")
-    public void Boardlist (BoardDTO boardDTO, Model model) {
+    public void boardList (BoardDTO boardDTO, Model model) {
 
         List<BoardDTO> list = boardService.boardList(boardDTO);
 
