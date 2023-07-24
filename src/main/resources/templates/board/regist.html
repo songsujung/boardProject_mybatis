@@ -7,6 +7,49 @@
     <title>Regist Page</title>
 </head>
 <body>
+<div class="container-fluid pt-4 px-4" layout:fragment="content">
+    <div class="col-sm-12 col-xl-12">
+        <div class="bg-light rounded h-100 p-4">
+            <h2 class="mb-4">Board Register</h2>
+            <form class="regist" method="post">
+                <div class="mb-3">
+                    <label for="boardTitle" class="form-label">title</label>
+                    <input type="text" name="title" class="form-control" id="boardTitle">
+                </div>
+                <div class="mb-3">
+                    <label for="boardContent" class="form-label">content</label>
+                    <input type="text" name="content" class="form-control" id="boardContent">
+                </div>
+                <div class="mb-3">
+                    <label for="boardWriter" class="form-label">writer</label>
+                    <input type="text" name="writer" class="form-control" id="boardWriter">
+                </div>
+            </form>
+            <div class="button_wrap">
+                <button type="button" class="btn btn-primary btnRegister">Register</button>
+                <a href="/board/list" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script layout:fragment="script" th:inline="javascript">
+
+    // document에서 btnRegister라는 클래스를 찾아 button이라는 변수로 지정
+    const button = document.querySelector(".btnRegister")
+
+    // document에서 regist(form)라는 클래스를 찾아 actionForm이라는 변수로 지정
+    const actionForm = document.querySelector(".regist")
+
+    // 이벤트 생성
+    // button을 click하면 이벤트가 실행됨(actionForm을 서버로 전송)
+    // submit("method", get)이라고 써서 post방식의 form을 get방식으로 재활용 할 수도 있음
+    button.addEventListener("click", (e) => {
+        actionForm.submit()
+    })
+
+
+
+</script>
 </body>
 </html>
