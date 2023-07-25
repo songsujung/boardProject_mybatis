@@ -15,7 +15,7 @@
                 <hr>
                 <form class="modify" method="post" action="/board/modify">
                     <h4 class="mb-4">tno</h4>
-                    <div class="alert alert-light" role="alert">[[${board.tno}]]</div>
+                    <input class="alert alert-light" name="tno" role="alert" readonly th:value="${board.tno}">
                     <h4 class="mb-4">title</h4>
                     <div class="alert alert-light" role="alert">
                         <input type="text" name="title" class="border-0 text-gray-600" th:value="${board.title}">
@@ -25,7 +25,7 @@
                         <input type="text" name="content" class="border-0 text-gray-600" th:value="${board.content}">
                     </div>
                     <h4 class="mb-4">writer</h4>
-                    <div class="alert alert-light" role="alert">[[${board.writer}]]</div>
+                    <input class="alert alert-light" name="writer" role="alert" readonly th:value="${board.writer}">
 
                     <div class="button_wrap">
 
