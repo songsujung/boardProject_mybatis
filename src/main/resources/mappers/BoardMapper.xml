@@ -10,7 +10,16 @@
         select * from tbl_board
         where tno > 0
         order by tno desc
-        limit 0,10
+        limit #{skip}, #{size}
+    </select>
+
+    <!--  게시판 next버튼을 위한 total  -->
+    <select id="total" resultType="int">
+        select count(*)
+        from
+        (select tno from tbl_board
+        where tno > 0
+        limit #{countEnd}) board
     </select>
 
     <!--  등록  -->
