@@ -1,6 +1,8 @@
 package com.example.boardsj.controller;
 
 import com.example.boardsj.dto.BoardDTO;
+import com.example.boardsj.dto.PageRequestDTO;
+import com.example.boardsj.dto.PageResponseDTO;
 import com.example.boardsj.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,10 +25,12 @@ public class BoardController {
 
     // 게시판 목록
     @GetMapping("list")
-    public void boardList (BoardDTO boardDTO, Model model) {
+    public void boardList (PageRequestDTO pageRequestDTO, Model model) {
 
-        List<BoardDTO> list = boardService.boardList(boardDTO);
+        // 페이지 요청에 따른 게시판 목록과 전체 게시물 수를 PageResponseDTO<BoardDTO>객체로 반환해 list라는 변수에 담음
+        PageResponseDTO<BoardDTO> list = boardService.boardList(pageRequestDTO);
 
+        //  model에 boardList라는 이름으로 추가
         model.addAttribute("boardList", list);
     }
 

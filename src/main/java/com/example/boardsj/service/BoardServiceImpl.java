@@ -1,6 +1,8 @@
 package com.example.boardsj.service;
 
 import com.example.boardsj.dto.BoardDTO;
+import com.example.boardsj.dto.PageRequestDTO;
+import com.example.boardsj.dto.PageResponseDTO;
 import com.example.boardsj.mappers.BoardMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,11 +17,19 @@ public class BoardServiceImpl implements BoardService {
 
     // 목록
     @Override
-    public List<BoardDTO> boardList(BoardDTO boardDTO) {
+    public PageResponseDTO<BoardDTO> boardList(PageRequestDTO pageRequestDTO) {
 
-        List<BoardDTO> list = boardMapper.boardList(boardDTO);
+        // 리스트
+        List<BoardDTO> boardList = boardMapper.boardList(pageRequestDTO);
 
-        return list;
+        // total
+        int total = boardMapper.total(pageRequestDTO);
+
+        // BoardDTO 타입의 list, total값을 가진 PageResponseDTO객체를 반환
+        return PageResponseDTO.<BoardDTO>withAll()
+                .list(boardList)
+                .toal(total)
+                .build();
 
     }
 
