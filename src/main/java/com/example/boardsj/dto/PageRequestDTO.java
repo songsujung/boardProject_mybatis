@@ -44,7 +44,7 @@ public class PageRequestDTO {
 
     }
 
-    // limit에 들어 갈 skip 계산
+    // limit에 들어갈 skip 계산
     // 예시) page가 3(페이지)이고, size가 10이면 20까지 스킵
     public int getSkip() {
 
