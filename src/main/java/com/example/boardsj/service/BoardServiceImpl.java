@@ -28,7 +28,7 @@ public class BoardServiceImpl implements BoardService {
         // BoardDTO 타입의 list, total값을 가진 PageResponseDTO객체를 반환
         return PageResponseDTO.<BoardDTO>withAll()
                 .list(boardList)
-                .toal(total)
+                .total(total)
                 .build();
 
     }

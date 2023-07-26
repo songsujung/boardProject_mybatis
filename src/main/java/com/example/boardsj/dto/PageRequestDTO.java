@@ -44,11 +44,11 @@ public class PageRequestDTO {
 
     }
 
-    // limit에 들어갈 skip 계산
-    // 예) page가 3(페이지)이고, size가 10이면 => 20까지 스킵
-    public int getSikp() {
+    // limit에 들어 갈 skip 계산
+    // 예시) page가 3(페이지)이고, size가 10이면 20까지 스킵
+    public int getSkip() {
 
-        return (this.page -1) * this.size;
+        return (this.page - 1) * this.size;
     }
 
     // next 버튼을 위한 count 구하기

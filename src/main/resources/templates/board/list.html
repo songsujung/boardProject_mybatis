@@ -29,7 +29,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="list: ${boardList}">
+                            <tr th:each="list: ${boardList.list}">
                                 <td th:text="${list.tno}" th:data-tno="${list.tno}"></td>
                                 <td th:text="${list.title}" th:data-tno="${list.tno}"></td>
                                 <td th:text="${list.writer}" th:data-tno="${list.tno}"></td>
@@ -58,49 +58,48 @@
 
     const board = document.querySelector(".boardTable")
 
+    const actionForm = document.querySelector(".list")
+
     const paging = document.querySelector(".paging")
 
     const pageObj = document.querySelector("input[name=page]")
 
     // page,size 값 구조분해 할당
-    const {page,size} = [[${pageRequestDTO}]]
+    const {page, size} = [[${pageRequestDTO}]]
 
-    // total 값 구조분해 할당
-    const {total} =[[${boardlist}]]
+    // total 값 저장
+    const {total} = [[${boardList}]]
 
     // paging 동적으로 생성
     const pageList = makePages(page, size, total)
     paging.innerHTML = pageList
 
-    const actionForm = document.querySelector(".list")
-
-    // paging 이동버튼
+    // paging 이동 버튼
     paging.addEventListener("click", (e) => {
-
-        // 이벤트 생성시 기본 설정 메서드
-        e.preventDefault() // 브라우저의 기본 동작을 막고, 자바스크립트에서 지정한 동작만 실행
-        e.stopPropagation() // 부모(상위) 요소들로 이벤트가 전파되는 버블링현상을 막아줌
+        e.preventDefault()
+        e.stopPropagation()
 
         // target 찾기
         const target = e.target
 
-        // paging 번호 가져오기
+        // paging번호 가져오기
         const pageNum = target.getAttribute("href")
 
-        // page값 넘겨주기
+        // paging값 넘겨주기
         pageObj.value = pageNum
 
         // actionForm submit
         actionForm.setAttribute("action", "/board/list")
         actionForm.submit()
 
-    }, false)// 캡처링
+    }, false); // 캡처링
+
 
     // 게시판 상세페이지로 이동(조회)
     board.addEventListener("click", (e) => {
 
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault() // 기본값 설정
+        e.stopPropagation() // 기본값 설정
 
         console.log(e.target)
 
@@ -108,12 +107,14 @@
 
         const tno = target.getAttribute("data-tno")
 
-        console.log("tno: " + tno)
+        console.log("tno :" + tno)
 
         actionForm.setAttribute("action", `/board/read/${tno}`)
-        actionForm.submit()
 
-    },false)
+        actionForm.submit()
+    })
+
+
 
 </script>
 
