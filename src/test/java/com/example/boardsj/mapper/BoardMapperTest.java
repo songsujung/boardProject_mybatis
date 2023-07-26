@@ -1,6 +1,7 @@
 package com.example.boardsj.mapper;
 
 import com.example.boardsj.dto.BoardDTO;
+import com.example.boardsj.dto.PageRequestDTO;
 import com.example.boardsj.mappers.BoardMapper;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -18,10 +19,10 @@ public class BoardMapperTest {
     // 목록
     @Test
     public void testList() {
-        BoardDTO dto = BoardDTO.builder().build();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
 
         log.info("=====================================");
-        log.info(boardMapper.boardList(dto));
+        log.info(boardMapper.boardList(pageRequestDTO));
     }
 
     // 등록

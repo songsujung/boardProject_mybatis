@@ -1,6 +1,7 @@
 package com.example.boardsj.service;
 
 import com.example.boardsj.dto.BoardDTO;
+import com.example.boardsj.dto.PageRequestDTO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,10 @@ public class BoardServiceTest {
     @Test
     public void testList() {
 
-        BoardDTO boardDTO = BoardDTO.builder().build();
+        PageRequestDTO pageRequestDTO = PageRequestDTO.builder().build();
 
         log.info("====================================");
-        log.info(boardService.boardList(boardDTO));
+        log.info(boardService.boardList(pageRequestDTO));
     }
 
     // 등록
