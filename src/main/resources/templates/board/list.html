@@ -38,12 +38,19 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="btn-toolbar" role="toolbar" style="justify-content: center;">
+                        <!--/*  paging  */-->
+                        <div class="btn-group me-2 paging" role="group" aria-label="First group"></div>
+                    </div>
                     <a href="/board/regist" class="btn btn-primary">Register</a>
+                    <input type="hidden" name="page" th:value="${pageRequestDTO.page}">
+                    <input type="hidden" name="size" th:value="${pageRequestDTO.size}">
                 </div>
             </form>
         </div>
 
     </div>
+    <script src="/js/paging.js"></script>
     <!-- /.container-fluid -->
 </div>
 
@@ -51,8 +58,45 @@
 
     const board = document.querySelector(".boardTable")
 
+    const paging = document.querySelector(".paging")
+
+    const pageObj = document.querySelector("input[name=page]")
+
+    // page,size 값 구조분해 할당
+    const {page,size} = [[${pageRequestDTO}]]
+
+    // total 값 구조분해 할당
+    const {total} =[[${boardlist}]]
+
+    // paging 동적으로 생성
+    const pageList = makePages(page, size, total)
+    paging.innerHTML = pageList
+
     const actionForm = document.querySelector(".list")
 
+    // paging 이동버튼
+    paging.addEventListener("click", (e) => {
+
+        // 이벤트 생성시 기본 설정 메서드
+        e.preventDefault() // 브라우저의 기본 동작을 막고, 자바스크립트에서 지정한 동작만 실행
+        e.stopPropagation() // 부모(상위) 요소들로 이벤트가 전파되는 버블링현상을 막아줌
+
+        // target 찾기
+        const target = e.target
+
+        // paging 번호 가져오기
+        const pageNum = target.getAttribute("href")
+
+        // page값 넘겨주기
+        pageObj.value = pageNum
+
+        // actionForm submit
+        actionForm.setAttribute("action", "/board/list")
+        actionForm.submit()
+
+    }, false)// 캡처링
+
+    // 게시판 상세페이지로 이동(조회)
     board.addEventListener("click", (e) => {
 
         e.preventDefault()
@@ -67,10 +111,7 @@
         console.log("tno: " + tno)
 
         actionForm.setAttribute("action", `/board/read/${tno}`)
-
         actionForm.submit()
-
-
 
     },false)
 
