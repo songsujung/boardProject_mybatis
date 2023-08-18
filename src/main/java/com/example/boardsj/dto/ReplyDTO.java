@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ReplyDTO {
 
     private int rno; // pk
-    private int tno; // 게시물 번호
+    private int bno; // 게시물 번호
     private String reply; // 댓글내용
     private String replyer; // 댓글 작성자
     private String replyDate; // 댓글 작성시간

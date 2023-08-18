@@ -17,10 +17,10 @@ public interface BoardService {
     void regist(BoardDTO boardDTO);
 
     // 조회
-    BoardDTO read(Long tno);
+    BoardDTO read(Long bno);
 
     // 삭제
-    void delete(Long tno);
+    void delete(Long bno);
 
     // 수정
     void modify(BoardDTO boardDTO);

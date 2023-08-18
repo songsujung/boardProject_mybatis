@@ -15,7 +15,7 @@
             <hr>
             <form class="read" method="post" action="/board/read">
                 <h4 class="mb-4">tno</h4>
-                <div class="alert alert-light" role="alert">[[${read.tno}]]</div>
+                <div class="alert alert-light" role="alert">[[${read.bno}]]</div>
                 <h4 class="mb-4">title</h4>
                 <div class="alert alert-light" role="alert">[[${read.title}]]</div>
                 <h4 class="mb-4">content</h4>
@@ -44,16 +44,16 @@
 
         const actionForm = document.querySelector(".read")
 
-        const {tno}= [[${read}]]
+        const {bno}= [[${read}]]
 
         btnModify.addEventListener("click", (e) => {
-            actionForm.setAttribute("action", `/board/modify/${tno}`)
+            actionForm.setAttribute("action", `/board/modify/${bno}`)
             actionForm.setAttribute("method", 'get')
             actionForm.submit()
         })
 
         btnDelete.addEventListener("click", (e) => {
-            actionForm.setAttribute("action", `/board/delete/${tno}`)
+            actionForm.setAttribute("action", `/board/delete/${bno}`)
             actionForm.setAttribute("method", 'post')
             actionForm.submit()
         })

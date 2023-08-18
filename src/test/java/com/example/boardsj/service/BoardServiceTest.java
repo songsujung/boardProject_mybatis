@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Log4j2
@@ -26,6 +27,7 @@ public class BoardServiceTest {
 
     // 등록
     @Test
+    @Transactional
     public void testRegist() {
 
         BoardDTO boardDTO = BoardDTO.builder()
@@ -44,14 +46,15 @@ public class BoardServiceTest {
     public void testRead() {
 
         log.info("====================================");
-        log.info(boardService.read(2038L));
+        log.info(boardService.read(375L));
     }
 
     // 삭제
     @Test
+    @Transactional
     public void testDelete() {
 
-        boardService.delete(1526L);
+        boardService.delete(375L);
         log.info("====================================");
         log.info("삭제 완료");
     }
@@ -60,7 +63,7 @@ public class BoardServiceTest {
     @Test
     public void testModify() {
         BoardDTO boardDTO = BoardDTO.builder()
-                .tno(1525L)
+                .bno(1525L)
                 .title("titleUpdate")
                 .content("contentUpdate")
                 .build();

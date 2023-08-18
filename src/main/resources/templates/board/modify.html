@@ -14,8 +14,8 @@
                 <h2 class="mb-4">Board Modify</h2>
                 <hr>
                 <form class="modify" method="post" action="/board/modify">
-                    <h4 class="mb-4">tno</h4>
-                    <input class="alert alert-light" name="tno" role="alert" readonly th:value="${board.tno}">
+                    <h4 class="mb-4">bno</h4>
+                    <input class="alert alert-light" name="bno" role="alert" readonly th:value="${board.bno}">
                     <h4 class="mb-4">title</h4>
                     <div class="alert alert-light" role="alert">
                         <input type="text" name="title" class="border-0 text-gray-600" th:value="${board.title}">
@@ -45,9 +45,9 @@
 
     const actionForm = document.querySelector(".modify")
 
-    const {tno} = [[${board}]]
+    const {bno} = [[${board}]]
 
-    console.log(tno)
+    console.log(bno)
 
     btnModify.addEventListener("click", (e) => {
         actionForm.submit()

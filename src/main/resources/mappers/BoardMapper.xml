@@ -8,8 +8,8 @@
     <!--  목록  -->
     <select id="boardList" resultType="com.example.boardsj.dto.BoardDTO" parameterType="com.example.boardsj.dto.BoardDTO">
         select * from tbl_board
-        where tno > 0
-        order by tno desc
+        where bno > 0
+        order by bno desc
         limit #{skip}, #{size}
     </select>
 
@@ -17,8 +17,8 @@
     <select id="total" resultType="int">
         select count(*)
         from
-        (select tno from tbl_board
-        where tno > 0
+        (select bno from tbl_board
+        where bno > 0
         limit #{countEnd}) board
     </select>
 
@@ -26,7 +26,7 @@
     <insert id="regist">
         insert into tbl_board(title, content, writer)
         values (#{title}, #{content}, #{writer})
-        <selectKey resultType="long" keyProperty="tno" order="AFTER">
+        <selectKey resultType="long" keyProperty="bno" order="AFTER">
             select last_insert_id()
         </selectKey> <!-- 몇 번으로 등록 되었는 지 확인하기 위해 사용(최근 등록 된 번호(마지막 값) 찾는 것)-->
     </insert>
@@ -34,19 +34,19 @@
     <!--  조회  -->
     <select id="read" resultType="com.example.boardsj.dto.BoardDTO">
         select * from tbl_board
-        where tno =#{tno}
+        where bno =#{bno}
     </select>
 
     <!--  삭제  -->
     <delete id="delete">
         delete from tbl_board
-        where tno = #{tno}
+        where bno = #{bno}
     </delete>
 
     <!--  수정  -->
     <update id="modify">
         update tbl_board set title = #{title}, content = #{content}, updateDate = now()
-        where tno = #{tno}
+        where bno = #{bno}
     </update>
     
 </mapper>

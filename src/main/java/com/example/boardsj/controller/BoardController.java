@@ -52,12 +52,12 @@ public class BoardController {
     }
 
     // 게시판 조회
-    @GetMapping("read/{tno}")
-    public String boardRead(@PathVariable("tno") Long tno, Model model) {
+    @GetMapping("read/{bno}")
+    public String boardRead(@PathVariable("bno") Long bno, Model model) {
         log.info("GET Read.........");
 
         // tno 조회
-        BoardDTO boardDTO = boardService.read(tno);
+        BoardDTO boardDTO = boardService.read(bno);
 
         // model로 전달
         model.addAttribute("read", boardDTO);
@@ -67,22 +67,22 @@ public class BoardController {
     }
 
     // 게시판 삭제
-    @PostMapping("delete/{tno}")
-    public String boardDelete(@PathVariable("tno") Long tno) {
+    @PostMapping("delete/{bno}")
+    public String boardDelete(@PathVariable("tno") Long bno) {
 
-        boardService.delete(tno);
+        boardService.delete(bno);
 
         return "redirect:/board/list";
     }
 
     // 게시판 수정
     // get
-    @GetMapping("modify/{tno}")
-    public String boardModifyGet(@PathVariable("tno") Long tno, Model model) {
+    @GetMapping("modify/{bno}")
+    public String boardModifyGet(@PathVariable("bno") Long bno, Model model) {
 
         log.info("GET modify.........................");
 
-        BoardDTO boardDTO = boardService.read(tno);
+        BoardDTO boardDTO = boardService.read(bno);
         model.addAttribute("board", boardDTO);
 
         return "/board/modify";
@@ -94,9 +94,9 @@ public class BoardController {
 
         boardService.modify(boardDTO);
 
-        log.info(boardDTO.getTno());
+        log.info(boardDTO.getBno());
 
-        return "redirect:/board/read/" + boardDTO.getTno();
+        return "redirect:/board/read/" + boardDTO.getBno();
     }
 
 

@@ -42,16 +42,16 @@ public class BoardServiceImpl implements BoardService {
 
     // 조회
     @Override
-    public BoardDTO read(Long tno) {
+    public BoardDTO read(Long bno) {
 
-        return boardMapper.read(tno);
+        return boardMapper.read(bno);
     }
 
     // 삭제
     @Override
-    public void delete(Long tno) {
+    public void delete(Long bno) {
 
-        boardMapper.delete(tno);
+        boardMapper.delete(bno);
     }
 
     // 수정
