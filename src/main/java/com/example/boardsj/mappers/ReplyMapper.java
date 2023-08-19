@@ -17,14 +17,12 @@ public interface ReplyMapper {
     // total
     int getBnoCount(Integer bno);
 
-    // register(댓글) - gno가 0일 때 실행
+    // register
+    // 댓글(gno가 0일 때 실행)
     int registerReply(ReplyDTO replyDTO);
     // 댓글의 gno 업데이트
     int updateReplyGno(Integer rno);
-
-    // register(대댓글) - gno가 0이 아닐 때 실행
+    // 대댓글(gno가 0이 아닐 때 실행)
     int registerReplyChild(ReplyDTO replyDTO);
-    
-
 
 }

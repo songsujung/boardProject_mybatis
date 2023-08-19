@@ -15,6 +15,34 @@
     limit #{pr.skip}, #{pr.size}
     </select>
 
-    
+    <!--  total  -->
+    <select id="getBnoCount" resultType="int">
+        select count(rno) from tbl_reply where bno = #{bno}
+    </select>
+
+    <!--  register 댓글  -->
+    <insert id="registerReply">
+        insert into  tbl_reply (bno, reply, replyer)
+        values (#{bno}, #{reply}, #{replyer})
+        <!-- 마지막 rno -->
+        <selectKey resultType="int" keyProperty="rno" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+
+    <!-- register 댓글 gno에 rno대입 -->
+    <update id="updateReplyGno">
+        update tbl_reply set gno = #{rno} where rno = #{rno}
+    </update>
+
+    <!--  register 대댓글  -->
+    <insert id="registerReplyChild">
+        insert into tbl_reply (bno, reply, replyer, gno)
+        values (#{bno}, #{reply}, #{replyer}, #{gno})
+        <!-- 마지막 rno -->
+        <selectKey resultType="int" keyProperty="rno" order="AFTER">
+            select last_insert_id()
+        </selectKey>
+    </insert>
 
 </mapper>
