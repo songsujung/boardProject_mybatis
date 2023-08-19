@@ -29,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
         return PageResponseDTO.<BoardDTO>withAll()
                 .list(boardList)
                 .total(total)
+                .pageRequestDTO(pageRequestDTO)
                 .build();
 
     }

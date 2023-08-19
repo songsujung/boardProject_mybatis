@@ -20,6 +20,8 @@ public class PageRequestDTO {
     @Builder.Default
     private int size = 10; // 페이지 사이즈
 
+    private boolean replyLast; //댓글 페이징 마지막 페이지 유무
+
     // 페이지 번호
     // page가 0보다 작으면 1로 설정, 아니면 그 페이지값으로 설정(페이지번호가 마이너스로 뜨지 않게 하기 위해)
     public void setPage(int page) {
