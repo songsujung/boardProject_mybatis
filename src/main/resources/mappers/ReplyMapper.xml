@@ -5,7 +5,7 @@
 
 <mapper namespace="com.example.boardsj.mappers.ReplyMapper">
 
-    <!--  list  -->
+    <!--  목록  -->
     <select id="getList" resultType="com.example.boardsj.dto.ReplyDTO">
     select if(rno = gno, 0, 1) as step, rno, bno, reply, replyer,
         replyDate, gno
@@ -20,7 +20,7 @@
         select count(rno) from tbl_reply where bno = #{bno}
     </select>
 
-    <!--  register 댓글  -->
+    <!--  댓글 등록  -->
     <insert id="registerReply">
         insert into  tbl_reply (bno, reply, replyer)
         values (#{bno}, #{reply}, #{replyer})
@@ -30,12 +30,12 @@
         </selectKey>
     </insert>
 
-    <!-- register 댓글 gno에 rno대입 -->
+    <!-- 댓글 등록 gno에 rno대입 -->
     <update id="updateReplyGno">
         update tbl_reply set gno = #{rno} where rno = #{rno}
     </update>
 
-    <!--  register 대댓글  -->
+    <!--  대댓글 등록  -->
     <insert id="registerReplyChild">
         insert into tbl_reply (bno, reply, replyer, gno)
         values (#{bno}, #{reply}, #{replyer}, #{gno})
@@ -44,5 +44,28 @@
             select last_insert_id()
         </selectKey>
     </insert>
+
+    <!--  댓글 조회  -->
+    <select id="readOne">
+        select rno, bno, reply, replyer, status
+        from tbl_reply
+        where rno = #{rno}
+    </select>
+
+    <!--  댓글 삭제  -->
+    <update id="delete">
+        update tbl_reply
+        set
+        reply = '삭제된 댓글입니다.', replyDate = now(), status = false
+        where rno = #{rno}
+    </update>
+
+    <!--  댓글 수정  -->
+    <update id="modify">
+        update tbl_reply
+        set
+        reply = #{reply}, replyDate = now()
+        where rno = #{rno}
+    </update>
 
 </mapper>

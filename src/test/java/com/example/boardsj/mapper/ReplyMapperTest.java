@@ -39,7 +39,7 @@ public class ReplyMapperTest {
         log.info(list);
     }
 
-    // 댓글
+    // 댓글 등록
     //test rallback이 default, commit 설정
     @Test
     @Transactional
@@ -70,7 +70,7 @@ public class ReplyMapperTest {
         replyMapper.updateReplyGno(rno);
     }
 
-    // 대댓글
+    // 대댓글 등록
     //test rallback이 default, commit 설정
     @Test
     @Transactional
@@ -97,8 +97,40 @@ public class ReplyMapperTest {
         }
     }
 
+    // 댓글 조회
+    @Test
+    public void testReadOne(){
+        Integer rno = 2;
 
+        log.info("===========================");
+        log.info("===========================");
+        log.info(replyMapper.readOne(rno));
+    }
 
-    
+    // 댓글 삭제
+    @Test
+    @Transactional
+    public void testReplyDelete(){
+        Integer rno = 9;
+
+        log.info("===========================");
+        log.info("===========================");
+        replyMapper.delete(rno);
+    }
+
+    // 댓글 수정
+    @Test
+    @Transactional
+    //@Commit
+    public void testReplyModify(){
+        ReplyDTO replyDTO = ReplyDTO.builder()
+        .rno(3)
+        .reply("reply modify")
+        .build();
+
+        log.info("===========================");
+        log.info("===========================");
+        replyMapper.modify(replyDTO);
+    }
     
 }

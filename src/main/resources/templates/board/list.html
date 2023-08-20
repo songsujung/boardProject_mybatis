@@ -105,11 +105,11 @@
 
         const target = e.target
 
-        const tno = target.getAttribute("data-tno")
+        const bno = target.getAttribute("data-bno")
 
-        console.log("tno :" + tno)
+        console.log("bno :" + bno)
 
-        actionForm.setAttribute("action", `/board/read/${tno}`)
+        actionForm.setAttribute("action", `/board/read/${bno}`)
 
         actionForm.submit()
     })
