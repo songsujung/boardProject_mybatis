@@ -37,6 +37,26 @@
     </div>
 </div>
 
+<div class="modal replyModModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          Reply Modify
+        </div>
+        <div class="modal-body replyModify">
+          <input type="hidden" name="replyer" value="Josanghee">
+          <input type="text" name="reply" class="form-control">
+          <div class="replyModifyVal"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary btnReplyModify">Reply Modify</button>
+          <button class="btn btn-danger btnDelete">Reply Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <script layout:fragment="script" th:inline="javascript">
 
         const btnModify = document.querySelector(".btnModify")
