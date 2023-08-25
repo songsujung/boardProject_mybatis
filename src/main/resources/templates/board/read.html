@@ -44,7 +44,7 @@
             </div>
             <div class="mb-3 replyRegister">
                 <input type="hidden" name="bno" th:value="${read.bno}">
-                <input type="hidden" name="replyer" value="Josanghee">
+                <input type="hidden" name="replyer" value="SongSujung">
                 <input type="text" name="reply" class="form-control">
             </div>
             <div class="button_wrap">
@@ -66,23 +66,78 @@
             </div>
             </div>
         </div>
+
+        <!-- 대댓글 모달창 -->
+        <div class="modal replyModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  Reply Register
+                </div>
+                <div class="modal-body replyRegister2">
+                  <input type="hidden" name="bno" th:value="${read.bno}">
+                  <input type="hidden" name="replyer" value="SongSujung">
+                  <input type="text" name="reply" class="form-control">
+                  <div class="replyGno"></div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary btnReplyRegister2">Reply Register</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                    Close
+                </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- 댓글 수정 모달창 -->
+        <div class="modal replyModModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  Reply Modify
+                </div>
+                <div class="modal-body replyModify">
+                  <input type="hidden" name="replyer" value="Josanghee">
+                  <input type="text" name="reply" class="form-control">
+                  <div class="replyModifyVal"></div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary btnReplyModify">Reply Modify</button>
+                  <button class="btn btn-danger btnReplyDelete">Reply Delete</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal" aria-label="Close">
+                    Close
+                </button>
+                </div>
+              </div>
+            </div>
+        </div>
+
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script src="/js/reply.js"></script>
     </div>
 
 
-    
-
-
-
     <script layout:fragment="script" th:inline="javascript">
 
-        const btnModify = document.querySelector(".btnModify")
-        const btnDelete = document.querySelector(".btnDelete")
-        const replyWrap = document.querySelector(".replyWrap")
-        const replyPaging = document.querySelector(".replyPaging")
-        const replyRegister = document.querySelector(".replyRegister")
-        const btnReplyRegister = document.querySelector(".btnReplyRegister")
+        const btnModify = document.querySelector(".btnModify") // 게시글 수정
+        const btnDelete = document.querySelector(".btnDelete") // 게시글 삭제
+        const replyModal = new bootstrap.Modal(document.querySelector(".replyModal")) // 대댓글 등록 모달
+        const replyModModal = new bootstrap.Modal(document.querySelector(".replyModModal")) // 댓글 수정 모달
+        const replyWrap = document.querySelector(".replyWrap") // 댓글 수정 모달, 대댓글 등록 모달
+        const replyRegister = document.querySelector(".replyRegister") // 댓글 등록
+        const replyRegister2 = document.querySelector(".replyRegister2") // 대댓글 등록
+        const replyModify = document.querySelector(".replyModify") // 댓글 수정
+        const replyModifyVal = replyModify.querySelector(".replyModifyVal") // 댓글 수정
+        const replyGno = replyRegister2.querySelector(".replyGno") // 대댓글 등록
+        const btnReplyRegister = document.querySelector(".btnReplyRegister") // 댓글 등록 버튼
+        const btnReplyRegister2 = document.querySelector(".btnReplyRegister2") // 대댓글 등록 버튼
+        const btnReplyModify = document.querySelector(".btnReplyModify") // 댓글 수정 버튼
+        const btnReplyDelete = document.querySelector(".btnReplyDelete") // 댓글 삭제 버튼
+
+
+        const replyPaging = document.querySelector(".replyPaging") // 댓글 페이징
+
 
         const actionForm = document.querySelector(".read")
 
@@ -132,6 +187,66 @@
         }, false)
         // 댓글 등록 end
 
+        // 댓글 수정 모달
+        replyWrap.addEventListener("click", (e) => {
+        //event 막기
+        e.preventDefault()
+        e.stopPropagation()
+
+        // target 찾기
+        const target = e.target
+        const rno = target.getAttribute("data-rno")
+        //console.log(target.getAttribute("data-reply"))
+
+        getReadOne(rno).then(data => {
+            console.log(data)
+            replyModModal.show()
+            replyModify.querySelector("input[name=reply]").value = data.reply
+            replyModifyVal.innerHTML = `<input type="hidden" name="rno" value="${rno}">`
+        })
+        }, false)
+        // 댓글 수정 모달 end
+
+        // 댓글 삭제
+        btnReplyDelete.addEventListener("click", (e) => {
+        // event 막기
+        e.preventDefault()
+        e.stopPropagation()
+        // target 찾기
+        const target = e.target
+        const rno = target.closest(".replyModModal").querySelector("input[name=rno]").value
+
+        
+
+        deleteReply(rno).then(data => {
+            alert(`${rno}번 댓글이 삭제 되었습니다.`)
+            replyModModal.hide()
+            getListDefault()
+        })
+        })
+        // 댓글 삭제 end
+
+        // 댓글 수정
+        btnReplyModify.addEventListener("click", (e) => {
+        //event 막기
+        e.preventDefault()
+        e.stopPropagation()
+        //target 찾기
+        const target = e.target
+        const rno = replyModify.querySelector("input[name=rno]").value
+        const reply = replyModify.querySelector("input[name=reply]").value
+
+        //객체로 만들기
+        const temp = {rno, reply}
+
+        putReply(temp).then(data => {
+            alert(data.result + "번 댓글이 수정 되었습니다.")
+            getListDefault()
+            replyModModal.hide()
+        })
+        })
+        // 댓글 수정 end
+
         // 댓글 페이징
         replyPaging.addEventListener("click", (e) => {
         e.preventDefault()
@@ -150,6 +265,58 @@
 
         }, false)
         // 댓글 페이징 end
+
+        // 대댓글 모달
+        replyWrap.addEventListener("click", (e) => {
+        //event 막기
+        e.preventDefault()
+        e.stopPropagation()
+
+        // target 찾기
+        const target = e.target
+        const result = target.getAttribute("data-reply")
+        const gno = target.getAttribute("data-gno")
+        //console.log(target.getAttribute("data-reply"))
+
+        if(result === "reply"){
+            replyModal.show()
+            replyRegister2.querySelector("input[name=reply]").value = ""
+            replyGno.innerHTML = `<input type="hidden" name="gno" value="${gno}">`
+        }
+        }, false)
+        // 대댓글 모달 end
+
+        // 대댓글 등록
+        btnReplyRegister2.addEventListener("click", (e) => {
+        // 이벤트 막기
+        e.preventDefault()
+        e.stopPropagation()
+
+        // value 가져오기
+        const bno = replyRegister2.querySelector("input[name=bno]").value
+        const reply = replyRegister2.querySelector("input[name=reply]").value
+        const replyer = replyRegister2.querySelector("input[name=replyer]").value
+        const gno = replyRegister2.querySelector("input[name=gno]").value
+        //console.log(bno, reply, replyer)
+
+        if(reply === ''){
+            alert("댓글 내용을 입력해주세요.")
+            return
+        }
+
+        // 객체로 만들기
+        const temp = {bno, reply, replyer, gno}
+        //console.log(temp)
+
+        postRegister(temp).then(data => {
+            alert(data.result + "번 댓글이 등록 되었습니다.")
+            replyRegister.querySelector("input[name=reply]").value = ""
+            getListDefault()
+            replyModal.hide()
+        })
+        }, false)
+        // 대댓글 등록 end
+        // 댓글 end
 
 
         getListDefault()

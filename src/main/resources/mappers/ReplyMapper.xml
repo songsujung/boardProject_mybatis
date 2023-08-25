@@ -10,7 +10,7 @@
     select if(rno = gno, 0, 1) as step, rno, bno, reply, replyer,
         replyDate, gno
     from tbl_reply
-    where bno = #{bno} and rno > 0
+    where bno = #{bno} and rno > 0 and status = 0
     order by rno asc, gno asc
     limit #{pr.skip}, #{pr.size}
     </select>
@@ -56,7 +56,7 @@
     <update id="delete">
         update tbl_reply
         set
-        reply = '삭제된 댓글입니다.', replyDate = now(), status = false
+        reply = '삭제된 댓글입니다.', replyDate = now(), status = true
         where rno = #{rno}
     </update>
 
