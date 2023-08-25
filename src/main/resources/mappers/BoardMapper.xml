@@ -6,56 +6,21 @@
 <mapper namespace="com.example.boardsj.mappers.BoardMapper">
 
     <!--  목록  -->
-<select id="boardList" parameterType="com.example.boardsj.dto.BoardDTO" resultType="com.example.boardsj.dto.BoardDTO">
-
-select * from tbl_board b
-where bno > 0
-   <if test="keyword != null and types != null">
-      <trim prefix="and (" prefixOverrides="or" suffix=")">
-        <foreach collection="types" item="type" separator=" or ">
-          <if test='type == "t"'>
-            b.title like concat('%', #{keyword}, '%')
-          </if>
-          <if test='type == "c"'>
-            b.content like concat('%', #{keyword}, '%')
-          </if>
-          <if test='type == "w"'>
-            b.writer like concat('%', #{keyword}, '%')
-          </if>
-        </foreach>
-      </trim>
-    </if>
-order by bno desc
-limit #{skip} , #{size}
-
-</select>
+    <select id="boardList" resultType="com.example.boardsj.dto.BoardDTO" parameterType="com.example.boardsj.dto.BoardDTO">
+        select * from tbl_board
+        where bno > 0
+        order by bno desc
+        limit #{skip}, #{size}
+    </select>
 
     <!--  게시판 next버튼을 위한 total  -->
-<!-- total -->
-<select id="total">
-
-    select count(*)
-    from
-    (select bno from tbl_board b
-    where bno > 0
-       <if test="keyword != null and types != null">
-      <trim prefix="and (" prefixOverrides="or" suffix=")">
-        <foreach collection="types" item="type" separator=" or ">
-          <if test='type == "t"'>
-            b.title like concat('%', #{keyword}, '%')
-          </if>
-          <if test='type == "c"'>
-            b.content like concat('%', #{keyword}, '%')
-          </if>
-          <if test='type == "w"'>
-            b.writer like concat('%', #{keyword}, '%')
-          </if>
-        </foreach>
-      </trim>
-    </if>
-    limit #{countEnd}) board
-
-</select>
+    <select id="total" resultType="int">
+        select count(*)
+        from
+        (select bno from tbl_board
+        where bno > 0
+        limit #{countEnd}) board
+    </select>
 
     <!--  등록  -->
     <insert id="regist">
