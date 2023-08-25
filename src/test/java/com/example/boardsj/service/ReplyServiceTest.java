@@ -23,7 +23,7 @@ public class ReplyServiceTest {
     @Test
     public void testGetList(){
         //bno
-        Integer bno = 720909;
+        Integer bno = 375;
         //list
         PageRequestDTO dto = PageRequestDTO.builder().build();
         

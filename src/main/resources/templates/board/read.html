@@ -7,79 +7,152 @@
     <title>Read Page</title>
 </head>
 <body>
-<div class="container-fluid pt-4 px-4" layout:fragment="content">
-    <!--/* [[${boardRead}]] */-->
-    <div class="col-sm-12 col-xl-12">
-        <div class="bg-light rounded h-100 p-4">
-            <h2 class="mb-4">Board Read</h2>
-            <hr>
-            <form class="read" method="post" action="/board/read">
-                <h4 class="mb-4">tno</h4>
-                <div class="alert alert-light" role="alert">[[${read.bno}]]</div>
-                <h4 class="mb-4">title</h4>
-                <div class="alert alert-light" role="alert">[[${read.title}]]</div>
-                <h4 class="mb-4">content</h4>
-                <div class="alert alert-light" role="alert">[[${read.content}]]</div>
-                <h4 class="mb-4">writer</h4>
-                <div class="alert alert-light" role="alert">[[${read.writer}]]</div>
-                <h4 class="mb-4">UpdateDate</h4>
-                <div class="alert alert-light" role="alert">[[${read.updateDate}]]</div>
-                <div class="button_wrap">
+    <div class="container-fluid pt-4 px-4" layout:fragment="content">
+        <!--/* [[${boardRead}]] */-->
+        <div class="col-sm-12 col-xl-12">
+            <div class="bg-light rounded h-100 p-4">
+                <h2 class="mb-4">Board Read</h2>
+                <hr>
+                <form class="read" method="post" action="/board/read">
+                    <h4 class="mb-4">bno</h4>
+                    <div class="alert alert-light" role="alert">[[${read.bno}]]</div>
+                    <h4 class="mb-4">title</h4>
+                    <div class="alert alert-light" role="alert">[[${read.title}]]</div>
+                    <h4 class="mb-4">content</h4>
+                    <div class="alert alert-light" role="alert">[[${read.content}]]</div>
+                    <h4 class="mb-4">writer</h4>
+                    <div class="alert alert-light" role="alert">[[${read.writer}]]</div>
+                    <h4 class="mb-4">UpdateDate</h4>
+                    <div class="alert alert-light" role="alert">[[${read.updateDate}]]</div>
+                    <div class="button_wrap">
 
-                    <!--  절대경로로 해주기  -->
-                    <a class="btn btn-dark" href="/board/list">LIST</a>
-                    <button class="btn btn-primary btnModify">Modify</button>
-                    <button class="btn btn-danger btnDelete">Delete</button>
+                        <!--  절대경로로 해주기  -->
+                        <a class="btn btn-dark" href="/board/list">LIST</a>
+                        <button class="btn btn-primary btnModify">Modify</button>
+                        <button class="btn btn-danger btnDelete">Delete</button>
 
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
+        
+        <!-- 댓글등록 부분 -->
+        <div class="col-sm-12 col-md-12 col-xl-12">
+            <div class="h-100 bg-light rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6 class="mb-0">Reply Register</h6>
+            </div>
+            <div class="mb-3 replyRegister">
+                <input type="hidden" name="bno" th:value="${read.bno}">
+                <input type="hidden" name="replyer" value="Josanghee">
+                <input type="text" name="reply" class="form-control">
+            </div>
+            <div class="button_wrap">
+                <button class="btn btn-primary btnReplyRegister">Reply Register</button>
+            </div>
+            </div>
+        </div>
+
+        <!-- 댓글 부분 -->
+        <div class="col-sm-12 col-md-12 col-xl-12">
+            <div class="h-100 bg-light rounded p-4">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h6 class="mb-0">Reply</h6>
+            </div>
+            <div class="replyWrap"></div>
+            <div class="btn-toolbar" role="toolbar" style="justify-content: center;">
+                <!--/* paging */-->
+                <ul class="btn-group me-2 paging replyPaging" role="group" aria-label="First group"></ul>
+            </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/js/reply.js"></script>
     </div>
-</div>
 
-<div class="modal replyModModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          Reply Modify
-        </div>
-        <div class="modal-body replyModify">
-          <input type="hidden" name="replyer" value="Josanghee">
-          <input type="text" name="reply" class="form-control">
-          <div class="replyModifyVal"></div>
-        </div>
-        <div class="modal-footer">
-          <button class="btn btn-primary btnReplyModify">Reply Modify</button>
-          <button class="btn btn-danger btnDelete">Reply Delete</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
+
+    
+
+
 
     <script layout:fragment="script" th:inline="javascript">
 
         const btnModify = document.querySelector(".btnModify")
         const btnDelete = document.querySelector(".btnDelete")
+        const replyWrap = document.querySelector(".replyWrap")
+        const replyPaging = document.querySelector(".replyPaging")
+        const replyRegister = document.querySelector(".replyRegister")
+        const btnReplyRegister = document.querySelector(".btnReplyRegister")
 
         const actionForm = document.querySelector(".read")
 
         const {bno}= [[${read}]]
 
+        // 게시물 수정
         btnModify.addEventListener("click", (e) => {
             actionForm.setAttribute("action", `/board/modify/${bno}`)
             actionForm.setAttribute("method", 'get')
             actionForm.submit()
         })
 
+        // 게시물 삭제
         btnDelete.addEventListener("click", (e) => {
             actionForm.setAttribute("action", `/board/delete/${bno}`)
             actionForm.setAttribute("method", 'post')
             actionForm.submit()
         })
 
+        // 댓글
+        // 댓글 등록
+        btnReplyRegister.addEventListener("click", (e) => {
+        // 이벤트 막기
+        e.preventDefault()
+        e.stopPropagation()
+
+        // value 가져오기
+        const bno = replyRegister.querySelector("input[name=bno]").value
+        const reply = replyRegister.querySelector("input[name=reply]").value
+        const replyer = replyRegister.querySelector("input[name=replyer]").value
+        //console.log(bno, reply, replyer)
+
+        if(reply === ''){
+            alert("댓글 내용을 입력해주세요.")
+            return
+        }
+
+        // 객체로 만들기
+        const temp = {bno, reply, replyer}
+        //console.log(temp)
+
+        postRegister(temp).then(data => {
+            alert(data.result + "번 댓글이 등록 되었습니다.")
+            replyRegister.querySelector("input[name=reply]").value = ""
+            getListDefault()
+        })
+        }, false)
+        // 댓글 등록 end
+
+        // 댓글 페이징
+        replyPaging.addEventListener("click", (e) => {
+        e.preventDefault()
+        e.stopPropagation()
+
+        // target 찾기
+        const target = e.target
+        //console.log(target)
+
+        // paging 번호 찾기
+        const pageNum = target.getAttribute("data-page")
+        //console.log(pageNum)
+
+        // 페이징 변경해주기
+        getListDefault(true, pageNum)
+
+        }, false)
+        // 댓글 페이징 end
 
 
+        getListDefault()
 
     </script>
 

@@ -1,9 +1,12 @@
 
 // 댓글 비동기통신 처리
 
+const realPath = "http://localhost:8080"
+
 // 목록
 const getList = async(replyLast = false, page = 1) => {
     const res = await axios.get(`${realPath}/api/replies/${bno}/list?page=${page}&replyLast=${replyLast}`)
+    return res.data
 }
 
 // 등록

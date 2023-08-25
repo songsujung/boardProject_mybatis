@@ -56,7 +56,7 @@ public class BoardController {
     public String boardRead(@PathVariable("bno") Long bno, Model model) {
         log.info("GET Read.........");
 
-        // tno 조회
+        // bno 조회
         BoardDTO boardDTO = boardService.read(bno);
 
         // model로 전달
@@ -68,7 +68,7 @@ public class BoardController {
 
     // 게시판 삭제
     @PostMapping("delete/{bno}")
-    public String boardDelete(@PathVariable("tno") Long bno) {
+    public String boardDelete(@PathVariable("bno") Long bno) {
 
         boardService.delete(bno);
 
