@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,5 +25,7 @@ public class BoardDTO {
     private Date regDate;
 
     private Date updateDate;
+
+    private List<String> fileNames; // 파일업로드(파일명)
     
 }
