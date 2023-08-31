@@ -55,14 +55,14 @@ public class FileUploadMapperTest {
 
       AtomicInteger index = new AtomicInteger();
 
-      //등록된 파일 fileNames에서 추출
+      // 등록된 파일 fileNames에서 추출
       List<Map<String, String>> list = fileNames.stream().map(str -> {
-        //uuid 가져오기
+        // uuid 가져오기
         String uuid = str.substring(0, 36);
-        //실제 파일명 가져오기
+        // 실제 파일명 가져오기
         String fileName = str.substring(37);
         
-        //return map에 담기
+        // return map에 담기
         return Map.of("uuid", uuid, "file_name", fileName, "bno", "" + bno, "ord", "" + index.getAndIncrement());
       }).collect(Collectors.toList());
 
@@ -70,7 +70,7 @@ public class FileUploadMapperTest {
       log.info("=====================================================================");
       log.info(list);
 
-      //파일 등록 실행
+      // 파일 등록 실행
       fileUploadMapper.registerImage(list);
     }
   }
