@@ -12,4 +12,10 @@ import lombok.extern.log4j.Log4j2;
 @RequiredArgsConstructor
 public class FileUploadController {
     
+    //custom 예외처리
+    public static class DataNotFoundException extends RuntimeException{
+        public DataNotFoundException(String msg){
+        super(msg);
+        }
+    }
 }
