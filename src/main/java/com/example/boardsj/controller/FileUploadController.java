@@ -37,7 +37,7 @@ public class FileUploadController {
     }
 
     // import 시에 springframework으로 시작하는 Value
-    @Value("${org.zerock.upload.path}")
+    @Value("${com.example.upload.path}")
     private String uploadPath;
 
     // file upload

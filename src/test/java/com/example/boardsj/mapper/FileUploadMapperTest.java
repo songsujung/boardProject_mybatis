@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.boardsj.dto.BoardDTO;
@@ -28,6 +29,7 @@ public class FileUploadMapperTest {
     @Autowired(required = false)
     private BoardMapper boardMapper;
 
+    // 파일 등록 테스트
     @Test
     @Transactional
     //@Commit
@@ -73,6 +75,18 @@ public class FileUploadMapperTest {
       // 파일 등록 실행
       fileUploadMapper.registerImage(list);
     }
+  }
+  
+  // 파일 삭제 테스트
+  @Test
+  @Transactional
+  //@Commit
+  public void testFileDelete(){
+    Integer bno = 375;
+
+    log.info("=====================================================================");
+    log.info("=====================================================================");
+    log.info(fileUploadMapper.deleteImage(bno));
   }
     
 }
