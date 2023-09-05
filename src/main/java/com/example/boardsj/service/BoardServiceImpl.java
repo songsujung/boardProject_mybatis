@@ -4,6 +4,8 @@ import com.example.boardsj.dto.BoardDTO;
 import com.example.boardsj.dto.PageRequestDTO;
 import com.example.boardsj.dto.PageResponseDTO;
 import com.example.boardsj.mappers.BoardMapper;
+import com.example.boardsj.mappers.FileUploadMapper;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +15,9 @@ import java.util.List;
 @RequiredArgsConstructor // final로 생성된 객체를 초기화 해주기 위해 자동으로 생성자 주입
 public class BoardServiceImpl implements BoardService {
 
+    // 의존성 주입
     private final BoardMapper boardMapper;
+    private final FileUploadMapper fileUploadMapper;
 
     // 목록
     @Override
