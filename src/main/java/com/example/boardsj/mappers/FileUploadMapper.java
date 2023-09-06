@@ -8,6 +8,6 @@ public interface FileUploadMapper {
     // 이미지 및 파일 등록
     int registerImage(List<Map<String, String>> imageList);
 
-    int deleteImage(Integer bno);
+    int deleteImage(Long bno);
     
 }
