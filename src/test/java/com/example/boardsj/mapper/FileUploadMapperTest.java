@@ -82,7 +82,7 @@ public class FileUploadMapperTest {
   @Transactional
   //@Commit
   public void testFileDelete(){
-    Integer bno = 375;
+    Long bno = 375L;
 
     log.info("=====================================================================");
     log.info("=====================================================================");
