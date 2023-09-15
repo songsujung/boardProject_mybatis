@@ -24,50 +24,58 @@
                     <label for="boardWriter" class="form-label">writer</label>
                     <input type="text" name="writer" class="form-control" id="boardWriter">
                 </div>
+                <div class="mb-3">
+                    <label for="boardFile" class="form-label">File Upload</label>
+                    <input type="file" name="upload" multiple class="form-control uploadInput" id="boardFile">
+                </div>
+                <div class="uploadHidden"></div>
             </form>
             <div class="button_wrap">
                 <button type="button" class="btn btn-primary btnRegister">Register</button>
                 <a href="/board/list" class="btn btn-danger">Cancel</a>
             </div>
+            <div class="uploadWrap">
+                <ul class="uploadUL"></ul>
+            </div>
         </div>
     </div>
+
+    <script src="/js/fileUpload.js"></script>
 </div>
 
 <script layout:fragment="script" th:inline="javascript">
 
     // document에서 btnRegister라는 클래스를 찾아 button이라는 변수로 지정
     const button = document.querySelector(".btnRegister")
-
     // document에서 regist(form)라는 클래스를 찾아 actionForm이라는 변수로 지정
     const actionForm = document.querySelector(".regist")
-
     // 파일 업로드 input
     const uploadInput = document.querySelector(".uploadInput")
 
     // 파일 업로드
     uploadInput.addEventListener("change", e => {
 
-        //file 없으면 리턴
+        // file 없으면 리턴
         if(!uploadInput.files || uploadInput.files.length === 0) {
-        return
+            return
         }
-        //form data
+        // form data
         const formData = new FormData()
 
-        //formData에 파일 넣어주기
+        // formData에 파일 넣어주기
         for(let i = 0; i < uploadInput.files.length; i++) {
-        formData.append("files", uploadInput.files[i])
+            formData.append("files", uploadInput.files[i])
         }
         //console.dir(formData)
 
-        //http header 타입 지정
+        // http header 타입 지정
         const header = {headers: {"Content-Type": "multipart/form-data"}}
 
-        //파일 업로드 axios 호출
+        // 파일 업로드 axios 호출
         axios.post("http://localhost:8080/api/files/upload", formData, header).then(res => {
-        const result = res.data
-        //console.log(result)
-        showProducts(result)
+            const result = res.data
+            //console.log(result)
+            showProducts(result)
         })
     })
 
