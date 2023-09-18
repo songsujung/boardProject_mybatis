@@ -18,3 +18,22 @@ const showProducts = (arr) => {
     // 여러번 업로드 할 수 있으니 +=로 계속 추가
     uploadUL.innerHTML += str
   }
+
+  // 파일 삭제
+const removeFile = (e, uuid, fileName) => {
+  e.preventDefault()
+  e.stopPropagation()
+
+  const liObj = e.target.closest("li")
+  //console.log(liObj)
+  let originFile = ""
+  fileName !== undefined ? originFile = uuid + "_" + fileName : originFile = uuid
+
+  //console.log(originFile)
+
+  // nginx 파일 삭제
+  axios.delete(`http://localhost:8080/api/files/remove/${originFile}`)
+
+  // li 삭제
+  liObj.remove()
+}
