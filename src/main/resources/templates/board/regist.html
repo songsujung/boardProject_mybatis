@@ -45,11 +45,11 @@
 
 <script layout:fragment="script" th:inline="javascript">
 
-    // document에서 btnRegister라는 클래스를 찾아 button이라는 변수로 지정
+    const modalView = new bootstrap.Modal(document.querySelector(".modal"))
+    const modalPop = document.querySelector(".modal .modal-body")
+    const btnAdd = document.querySelector(".btnAdd")
     const button = document.querySelector(".btnRegister")
-    // document에서 regist(form)라는 클래스를 찾아 actionForm이라는 변수로 지정
     const actionForm = document.querySelector(".regist")
-    // 파일 업로드 input
     const uploadInput = document.querySelector(".uploadInput")
 
     // 파일 업로드
@@ -79,15 +79,46 @@
         })
     })
 
-    // 이벤트 생성
+    // 등록버튼 클릭
+    btnAdd.addEventListener("click", e => {
+      //console.log(frm.title.value);
+      if(frm.title.value === "") {
+        modalPop.innerHTML = "제목을 입력해주세요."
+        modalView.show()
+      }else if(frm.content.value === "") {
+        modalPop.innerHTML = "내용을 입력해주세요."
+        modalView.show()
+      }else if(frm.writer.value === "") {
+        modalPop.innerHTML = "작성자를 입력해주세요."
+        modalView.show()
+      }else if(!uploadInput.files || uploadInput.files.length === 0){
+        modalPop.innerHTML = "파일을 등록 해주세요."
+        modalView.show()
+      }else {
+        // li 전부 셀렉트
+        const liArr = uploadUL.querySelectorAll("li")
+
+        // li개수만큼 for문 돌려서 input hidden 추가
+        let str = ""
+        for(let liObj of liArr) {
+          //console.log(liObj)
+          const originName = liObj.getAttribute("data-originname")
+          //console.log(uuid, " / "+fileName)
+          //console.log("---------------------------------")
+          str += `<input type="hidden" name="fileNames" value="${originName}">`
+        }
+
+        uploadHidden.innerHTML += str
+        frm.submit()
+      }
+    }, false)
+
+    // 등록버튼 이벤트 생성
     // button을 click하면 이벤트가 실행됨(actionForm을 서버로 전송)
     // submit("method", get)이라고 써서 post방식의 form을 get방식으로 재활용 할 수도 있음
-    button.addEventListener("click", (e) => {
-        actionForm.submit()
-    })
-
-
-
+    // button.addEventListener("click", (e) => {
+    //     actionForm.submit()
+    // })
 </script>
 </body>
 </html>
