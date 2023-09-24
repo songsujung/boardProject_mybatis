@@ -44,10 +44,11 @@
 <script layout:fragment="script" th:inline="javascript">
 
     const btnModify = document.querySelector(".btnModify")
-
     const actionForm = document.querySelector(".modify")
-
     const {bno} = [[${board}]]
+    const uploadInput = document.querySelector(".uploadInput")
+    const uploadUL = document.querySelector(".uploadUL")
+    const uploadHidden = document.querySelector(".uploadHidden")
 
     console.log(bno)
 
