@@ -50,7 +50,32 @@
     const uploadUL = document.querySelector(".uploadUL")
     const uploadHidden = document.querySelector(".uploadHidden")
 
-    console.log(bno)
+    // 파일 업로드
+    uploadInput.addEventListener("change", e => {
+
+        // file 없으면 리턴
+        if(!uploadInput.files || uploadInput.files.length === 0) {
+            return
+        }
+        // form data
+        const formData = new FormData()
+
+        //formData에 파일 넣어주기
+        for(let i = 0; i < uploadInput.files.length; i++) {
+            formData.append("files", uploadInput.files[i])
+        }
+        //console.dir(formData)
+
+        //http header 타입 지정
+        const header = {headers: {"Content-Type": "multipart/form-data"}}
+
+        //파일 업로드 axios 호출
+        axios.post("http://localhost:8080/api/files/upload", formData, header).then(res => {
+            const result = res.data
+            //console.log(result)
+            showProducts(result)
+        })
+    })
 
     btnModify.addEventListener("click", (e) => {
         actionForm.submit()
