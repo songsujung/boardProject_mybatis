@@ -46,6 +46,9 @@
     const btnModify = document.querySelector(".btnModify")
     const actionForm = document.querySelector(".modify")
     const {bno} = [[${board}]]
+    const alertModal = new bootstrap.Modal(document.querySelector(".alertModal"))
+    const alertModalPop = document.querySelector(".alertModal .modal-body")
+    const btnAdd = document.querySelector(".btnAdd")
     const uploadInput = document.querySelector(".uploadInput")
     const uploadUL = document.querySelector(".uploadUL")
     const uploadHidden = document.querySelector(".uploadHidden")
@@ -77,9 +80,34 @@
         })
     })
 
-    btnModify.addEventListener("click", (e) => {
-        actionForm.submit()
-    })
+    // 수정버튼 클릭
+    btnAdd.addEventListener("click", e => {
+        //console.log(frm.title.value);
+        if(frm.title.value === "") {
+            alertModalPop.innerHTML = "제목을 입력해주세요."
+            alertModal.show()
+        }else if(frm.content.value === "") {
+            alertModalPop.innerHTML = "내용을 입력해주세요."
+            alertModal.show()
+        }else {
+            // li 전부 셀렉트
+            const liArr = uploadUL.querySelectorAll("li")
+
+            // li개수만큼 for문 돌려서 input hidden 추가
+            let str = ""
+            for(let liObj of liArr) {
+            //console.log(liObj)
+            const originName = liObj.getAttribute("data-originname")
+            //console.log(uuid, " / "+fileName)
+            //console.log("---------------------------------")
+            str += `<input type="hidden" name="fileNames" value="${originName}">`
+            }
+
+            uploadHidden.innerHTML += str
+            // 수정처리
+            frm.submit()
+        }
+    }, false)
 
 </script>
 
