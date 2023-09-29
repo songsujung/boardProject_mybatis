@@ -63,16 +63,16 @@
         // form data
         const formData = new FormData()
 
-        //formData에 파일 넣어주기
+        // formData에 파일 넣어주기
         for(let i = 0; i < uploadInput.files.length; i++) {
             formData.append("files", uploadInput.files[i])
         }
         //console.dir(formData)
 
-        //http header 타입 지정
+        // http header 타입 지정
         const header = {headers: {"Content-Type": "multipart/form-data"}}
 
-        //파일 업로드 axios 호출
+        // 파일 업로드 axios 호출
         axios.post("http://localhost:8080/api/files/upload", formData, header).then(res => {
             const result = res.data
             //console.log(result)
