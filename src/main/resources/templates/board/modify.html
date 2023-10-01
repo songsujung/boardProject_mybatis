@@ -26,6 +26,11 @@
                     </div>
                     <h4 class="mb-4">writer</h4>
                     <input class="alert alert-light" name="writer" role="alert" readonly th:value="${board.writer}">
+                    <div class="mb-4">
+                        <input type="file" name="upload" multiple class="form-control uploadInput" id="boardFile">
+                    </div>
+                    
+                      <div class="uploadHidden"></div>
 
                     <div class="button_wrap">
 
