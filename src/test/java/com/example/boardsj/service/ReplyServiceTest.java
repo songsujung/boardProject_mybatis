@@ -22,9 +22,9 @@ public class ReplyServiceTest {
     // 목록
     @Test
     public void testGetList(){
-        //bno
+        // bno
         Integer bno = 375;
-        //list
+        // list
         PageRequestDTO dto = PageRequestDTO.builder().build();
         
         log.info("====================================");
