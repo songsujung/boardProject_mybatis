@@ -71,7 +71,7 @@ public class ReplyMapperTest {
     }
 
     // 대댓글 등록
-    //test rallback이 default, commit 설정
+    // test rallback이 default, commit 설정
     @Test
     @Transactional
     //@Commit
