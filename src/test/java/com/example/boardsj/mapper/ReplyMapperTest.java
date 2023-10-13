@@ -40,7 +40,7 @@ public class ReplyMapperTest {
     }
 
     // 댓글 등록
-    //test rallback이 default, commit 설정
+    // test rallback이 default, commit 설정
     @Test
     @Transactional
     //@Commit
