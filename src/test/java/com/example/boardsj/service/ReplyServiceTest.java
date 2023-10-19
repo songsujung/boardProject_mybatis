@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 @SpringBootTest
 @Log4j2
 public class ReplyServiceTest {
-
     // 의존성 주입
     @Autowired
     private ReplyService replyService;
